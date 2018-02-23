@@ -54,3 +54,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'clearance', '1.16.1'
+gem 'figaro', '1.1.1'
+gem 'omniauth', '1.8.1'
+gem 'omniauth-facebook', '4.0.0'
