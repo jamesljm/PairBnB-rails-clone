@@ -21,24 +21,30 @@ class UsersController < Clearance::BaseController
 
   def edit
     @user = current_user
+    if params[:id].to_i != current_user.id
+        flash[:failure] = "Not enough token"
+      else
+        @user = current_user
+    end
   end
 
-  # def update
-  #   @user = User.find(params[:id])
-  #   if @user.update(user_params)
-  #     redirect_to @user
-  #   else
-  #     render :edit
-  #   end
-  # end
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render :edit
+    end
+  end
 
   def show
     @user = User.find(params[:id])
   end
 
-  # def destroy
-  # end
+  def destroy
+  end
 
+  # only accessible by superadmin
   # def index
   # 	@user = User.all
   # end
@@ -49,7 +55,7 @@ class UsersController < Clearance::BaseController
 
 private
   def user_params
-  	params.require(:user).permit(:first_name, :last_name, :email, :gender, :password, :birthdate)
+  	params.require(:user).permit(:first_name, :last_name, :email, :phone, :gender, :password, :birthdate, :avatar)
   end
     
 end

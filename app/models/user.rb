@@ -8,6 +8,9 @@ class User < ApplicationRecord
   enum gender: { male: 0, female: 1, not_sure: 2, prefer_not_to_disclose: 3 }
   enum role: { customer: 0, moderator: 1, superadmin: 2 }
 
+  # carrierwave avatar
+  mount_uploader :avatar, ImageUploader
+
   def self.create_with_auth_and_hash(authentication, auth_hash)
     user = self.create!(
       name: auth_hash["name"],

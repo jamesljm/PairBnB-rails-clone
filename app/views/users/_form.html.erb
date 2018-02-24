@@ -1,4 +1,14 @@
 
+<% if current_page?(edit_user_path(current_user)) %>
+    <div class="user-avatar">
+        <%= image_tag current_user.avatar_url.to_s %>
+    </div>
+    <div class="avatar-field">
+        <%= form.label :avatar %>
+        <%= form.file_field :avatar %>
+    </div>
+<% end %>
+
 <div class="text-field">
     <%= form.label :first_name %>
     <%= form.text_field :first_name, type: 'text', required: 'required' %>
@@ -29,13 +39,9 @@
     <%= form.text_field :email, type: 'email' %>
 </div>
 
-<div class="password-field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-</div>
-
-<!-- <div class="avatar-field"> -->
-    <%#= form.label :avatar %>
-    <!-- <br /> -->
-    <%#= form.file_field :avatar %>
-<!-- </div> -->
+<% if current_page?(new_user_path) %>
+    <div class="password-field">
+        <%= form.label :password %>
+        <%= form.password_field :password %>
+    </div>
+<% end %>

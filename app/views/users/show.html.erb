@@ -1,2 +1,27 @@
 <h1>User#show</h1>
-<p>Find me in app/views/user/show.html.erb</p>
+
+<ul>
+    <li>
+        <%= @user.name %>
+    </li>
+    <li>
+        <%= @user.gender %>
+    </li>
+    <li>
+        <%= @user.birthdate %>
+    </li>
+    <li>
+        <%= @user.email %>
+    </li>
+    <li>
+        <%= @user.phone %>
+    </li>
+    <li>
+        <%= @user.role %>
+    </li>
+    <li>
+        <%= image_tag @user.avatar_url.to_s %>
+    </li>
+</ul>
+
+<%= link_to  "Edit", edit_user_path(current_user) %>
