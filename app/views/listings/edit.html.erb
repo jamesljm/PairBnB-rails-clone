@@ -1,2 +1,11 @@
-<h1>Listings#edit</h1>
-<p>Find me in app/views/listings/edit.html.erb</p>
+<h1>Edit Page</h1>
+
+<%= form_for @listing do |form| %>
+
+    <%= render partial: '/listings/form', object: form %>
+    
+    <div class="submit-field">
+      <%= form.submit %>
+    </div>
+
+<% end %>

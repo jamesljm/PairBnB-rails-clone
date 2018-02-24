@@ -1,0 +1,98 @@
+<!--Basic Info-->
+<div class="text-field">
+    <%= form.label :name %>
+    <%= form.text_field :name, type: 'text', required: 'required' %>
+</div>
+    
+<div class="radio-field">
+    <%= form.label :place_type %><br />
+    <%= form.radio_button :place_type, 'heaven' %> Heaven<br />
+    <%= form.radio_button :place_type, 'earth' %> Earth<br />
+    <%= form.radio_button :place_type, 'hell' %> Hell<br />
+</div>
+    
+<div class="gender-field">
+    <%= form.label :property_type %>
+    <%= form.select :property_type, options_for_select(["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]) %>
+</div>
+    
+    <!--Quantity Info-->
+<div>
+    <%= form.label :room_number, "Numbers of room" %>
+    <%= form.select :room_number, options_for_select(0..5) %>
+</div>
+    
+<div>
+    <%= form.label :bed_number, "Numbers of bed" %>
+    <%= form.select :bed_number, options_for_select(1..6) %>
+</div>
+    
+<div>
+    <%= form.label :guest_number, "Numbers of guest" %>
+    <%= form.select :guest_number, options_for_select(1..10) %>
+</div>
+    
+<div>
+    <%= form.label :kitchen  %><br />
+    <%= form.label :kitchen, "Yes", :value => "true"  %>
+    <%= form.radio_button :kitchen, true %>
+    <%= form.label :kitchen, "No", :value => "false" %>
+    <%= form.radio_button :kitchen, false %>
+</div>
+    
+<div>
+    <%= form.label :amenities %><br />
+    <%= form.label "Gym" %>
+    <%= form.check_box :amenities, {multiple: true}, "gym", nil %>
+    <%= form.label "Pool" %>
+    <%= form.check_box :amenities, {multiple: true}, "pool", nil %>
+    <%= form.label "Sauna" %>
+    <%= form.check_box :amenities, {multiple: true}, "sauna", nil %>
+    <%= form.label "Bakery" %>
+    <%= form.check_box :amenities, {multiple: true}, "bakery", nil %>
+</div>
+    
+    <!--Location-->
+<div class="text-field">
+    <%= form.label :country %>
+    <%= form.country_select :country %>
+</div>
+    
+<div class="text-field">
+    <%= form.label :state %>
+    <%= form.text_field :state %>
+</div>
+    
+<div class="text-field">
+    <%= form.label :city %>
+    <%= form.text_field :city, type: 'text', required: 'required' %>
+</div>
+    
+<div class="text-field">
+    <%= form.label :zipcode %>
+    <%= form.text_field :zipcode, type: 'text', required: 'required' %>
+</div>
+    
+<div class="text-field">
+    <%= form.label :address %>
+    <%= form.text_field :address, type: 'text', required: 'required' %>
+</div>
+    
+    <!--Pricing-->
+<div>
+    <%= form.label :price, "Price" %>
+    <%= form.number_field :price, in: 80...500 %>
+</div>
+    
+<div>
+    <%= form.label :description %>
+    <%= form.text_area(:description, cols: 20, rows: 10) %>
+</div>
+    
+    <!--Search tag-->
+<div>
+    <%= form.label :tags %>
+    <%= form.text_field :tags, 'data-role'=>'tagsinput' %>
+</div>
+
+      

@@ -1,0 +1,27 @@
+<ul class="list" style="border: 1px solid black">
+    <li><strong><%= @listing.name %></strong></li>
+    <li><%= @listing.property_type %></li>
+    <li><%= @listing.bed_number %></li>
+    <li><%= @listing.guest_number %></li>
+    <li><%= @listing.kitchen %></li>
+    <li><%= @listing.amenities %></li>
+    <li><%= @listing.country %></li>
+    <li><%= @listing.city %></li>
+    <li><%= @listing.state %></li>
+    <li><%= @listing.zipcode %></li>
+    <li><%= @listing.address %></li>
+    <li><%= @listing.price %></li>
+    <li><%= @listing.description %></li>
+    <li><%= User.find(@listing.user_id).name %></li>
+    <% if @listing.tags.length > 0 %>
+        <ul class="tags">
+            <% @listing.tags.each do |tag| %>
+                <li><%= tag %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    <% if current_user.id == @listing.user_id || current_user.superadmin? %>
+        <%= link_to "edit list", edit_listing_path(@listing) %>
+    <% end %>
+    <%#= link_to "I want this!", new_listing_reservation_path(@listing) %>
+</ul>

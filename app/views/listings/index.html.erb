@@ -1,2 +1,12 @@
-<h1>Listings#index</h1>
-<p>Find me in app/views/listings/index.html.erb</p>
+<!--stylesheet-->
+<%#= provide :head do %>
+  <%#= stylesheet_link_tag "style/listings/index", :media => "all" %>
+<%# end %>
+
+<!--content-->
+<section id="listings">
+    <div class="container">
+        <h1>Explore PairBnB</h1>
+        <%= render partial: '/listings/feed' %>
+    </div>
+</section>
