@@ -22,19 +22,25 @@ class UsersController < Clearance::BaseController
   def edit
     @user = current_user
     if params[:id].to_i != current_user.id
-        flash[:failure] = "Not enough token"
+        flash[:error] = "Not enough token"
       else
         @user = current_user
     end
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      redirect_to @user
+
+    if current_user.superadmin?
+      # todo
     else
-      render :edit
+      @user = User.find(params[:id])
+      if @user.update(user_params)
+        redirect_to @user
+      else
+        render :edit
+      end
     end
+
   end
 
   def show

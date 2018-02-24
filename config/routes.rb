@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "sessions", only: [:create]
  
@@ -12,6 +13,13 @@ Rails.application.routes.draw do
     collection do
       # additional path
       get 'search' => "listings#search"
+    end
+
+    resources :reservations do
+      # confirmation page after reservation#new
+      collection do
+        get 'confirm' => 'reservations#confirm'
+      end
     end
   end
  

@@ -8,7 +8,7 @@ class CreateListings < ActiveRecord::Migration[5.1]
       t.integer :bed_number
       t.integer :guest_number
       t.boolean :kitchen, default: false
-      t.text  :amenities, array: true, default: []
+      t.text    :amenities, array: true, default: []
       t.string  :country
       t.string  :city
       t.string  :state

@@ -1,0 +1,49 @@
+<h1>Your Reservation</h1>
+
+<div class="list" style="border: 1px solid black">
+    <div class="list-title">
+        <span>
+            <%= @listing.name %>
+        </span>
+        &middot;
+        <span>
+            <%= @listing.place_type %>
+        </span>
+    </div>
+    <div class="list-info">
+        <span>
+            <%= @listing.property_type %>
+        </span>
+        &middot;
+        <span>
+            <%= @listing.country %>
+        </span>
+        &middot;
+        <span>
+            <%= @listing.state %>
+        </span>
+    </div>
+    <div class="list-pricing">
+        <span>
+            <%= @listing.price %>
+        </span>
+        &middot;
+        <span>
+            <%= @listing.description %>
+        </span>
+    </div>
+    <div class="reserv-total">
+        <!--(end_date.to_date - start_date.to_date).to_i-->
+        <span>
+            <%= @reservation.total_price %>
+        </span>
+    </div>
+    <div class="reserv-date">
+        <span>
+            <%= @reservation[:start_date] %>
+        </span> until
+        <span>
+            <%= @reservation[:end_date] %>
+        </span>
+    </div>
+</div>
