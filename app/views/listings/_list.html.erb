@@ -23,5 +23,5 @@
     <% if current_user.id == @listing.user_id || current_user.superadmin? %>
         <%= link_to "edit list", edit_listing_path(@listing) %>
     <% end %>
-    <%#= link_to "I want this!", new_listing_reservation_path(@listing) %>
+    <%= link_to "I want this!", new_listing_reservation_path(@listing) %>
 </ul>

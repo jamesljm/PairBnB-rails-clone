@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :authentications, dependent: :destroy
   has_many :listings
+  has_many :reservations
 
   # enum value will represent the data type
   enum gender: { male: 0, female: 1, not_sure: 2, prefer_not_to_disclose: 3 }

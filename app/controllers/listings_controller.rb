@@ -26,7 +26,7 @@ class ListingsController < ApplicationController
     end
     @listing = current_user.listings.find(params[:id])
     if @listing.update(listing_params)
-      redirect_to listing_path(params[:id])
+      redirect_to @listing
       flash[:success] = "Update complete"
     end
   end
