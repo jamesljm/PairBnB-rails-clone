@@ -9,6 +9,18 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <header id="main-header">
+      <%= render 'layouts/navigation' %>
+    </header>
+
+    <main role="main">
+      <%= yield %>
+    </main>
+
+    <footer id="main-footer">
+      <%#= render 'layouts/footer' %>
+    </footer>
+
   </body>
 </html>

@@ -1,0 +1,41 @@
+
+<div class="text-field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, type: 'text', required: 'required' %>
+</div>
+
+<div class="text-field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, type: 'text', required: 'required' %>
+</div>
+
+<div class="gender-field">
+    <%= form.label :gender, "Gender : " %>
+    <%= form.select :gender, options_for_select([["Male", "male"], ["Female", "female"], ["Not Sure", "not Sure"], ["Prefer not to disclose", "prefer not to disclose"]]) %>
+</div>
+
+<div class="date-field">
+    <%= form.label :birthdate %>
+    <%= form.date_select :birthdate, {order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+</div>
+
+<div class="tel-field">
+    <%= form.label :phone %>
+    <%= form.telephone_field :phone %>
+</div>
+
+<div class="text-field">
+    <%= form.label :email %>
+    <%= form.text_field :email, type: 'email' %>
+</div>
+
+<div class="password-field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+</div>
+
+<!-- <div class="avatar-field"> -->
+    <%#= form.label :avatar %>
+    <!-- <br /> -->
+    <%#= form.file_field :avatar %>
+<!-- </div> -->

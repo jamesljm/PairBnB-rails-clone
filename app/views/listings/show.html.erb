@@ -1,2 +1,11 @@
-<h1>Listings#show</h1>
-<p>Find me in app/views/listings/show.html.erb</p>
+<!--stylesheet-->
+<%#= provide :head do %>
+  <%#= stylesheet_link_tag "style/listings/show", :media => "all" %>
+<%# end %>
+
+<!--content-->
+<section id="listing-show">
+    <div class="container">
+        <%= render partial: '/listings/list' %>
+    </div>
+</section>
