@@ -2,7 +2,7 @@ class ListingsController < ApplicationController
   before_action :get_listing_with_id, only: [:show, :edit, :update]
   
   def index
-    @listings = Listing.all
+    @listings = Listing.paginate(:page => params[:page], :per_page => 20)
   end
   
   def show
