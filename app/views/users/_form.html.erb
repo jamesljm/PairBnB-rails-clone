@@ -1,14 +1,3 @@
-
-<% if current_page?(edit_user_path(current_user)) %>
-    <div class="user-avatar">
-        <%= image_tag current_user.avatar_url.to_s %>
-    </div>
-    <div class="avatar-field">
-        <%= form.label :avatar %>
-        <%= form.file_field :avatar %>
-    </div>
-<% end %>
-
 <div class="text-field">
     <%= form.label :first_name %>
     <%= form.text_field :first_name, type: 'text', required: 'required' %>
@@ -20,7 +9,7 @@
 </div>
 
 <div class="gender-field">
-    <%= form.label :gender, "Gender : " %>
+    <%= form.label :gender %>
     <%= form.select :gender, options_for_select([["Male", "male"], ["Female", "female"], ["Not Sure", "not Sure"], ["Prefer not to disclose", "prefer not to disclose"]]) %>
 </div>
 

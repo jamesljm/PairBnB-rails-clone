@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-  before_action :get_listing_with_id, :get_reservation_with_id
+  before_action :get_listing_with_id, :get_reservation_with_id, only: [:show]
   
   def index
   end

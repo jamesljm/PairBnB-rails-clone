@@ -1,0 +1,7 @@
+<div class="user-avatar">
+    <%= image_tag current_user.avatar_url.to_s %>
+</div>
+<div class="avatar-field">
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
+</div>
