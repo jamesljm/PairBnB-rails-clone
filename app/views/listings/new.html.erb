@@ -1,2 +1,10 @@
-<h1>Listings#new</h1>
-<p>Find me in app/views/listings/new.html.erb</p>
+<h1>Become a host!</h1>
+
+<%= form_for @listing do |form| %>
+
+    <%= render partial: '/listings/form', object: form %>
+        <div class="submit-field">
+        <%= form.submit %>
+    </div>
+
+<% end %>
