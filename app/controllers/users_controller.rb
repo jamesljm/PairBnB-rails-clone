@@ -1,10 +1,9 @@
 class UsersController < Clearance::BaseController
   # accessible pages with login
   before_action :require_login, only: [:edit, :update]
-  # before_action :user_params, only: [:new, :create, :update]
+  before_action :user_params, only: [:new, :create, :update]
 
   def new
-    flash[:success] = "Welcome to the PairBnB!"
     @user = User.new
     render template: "users/new"
   end
@@ -12,7 +11,8 @@ class UsersController < Clearance::BaseController
   def create
   	@user = User.new(user_params)
   	if @user.save
-  	  sign_in @user
+      sign_in @user
+      flash[:success] = "Welcome to the PairBnB!"
   		redirect_to edit_user_path(@user.id)
   	else
   		render :new
@@ -29,18 +29,12 @@ class UsersController < Clearance::BaseController
   end
 
   def update
-
-    if current_user.superadmin?
-      # todo
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user
     else
-      @user = User.find(params[:id])
-      if @user.update(user_params)
-        redirect_to @user
-      else
-        render :edit
-      end
+      render :edit
     end
-
   end
 
   def show
@@ -51,12 +45,8 @@ class UsersController < Clearance::BaseController
   end
 
   # only accessible by superadmin
-  # def index
-  # 	@user = User.all
-  # end
-  
-  def name
-    "#{self[:first_name]} #{self[:last_name]}"
+  def index
+  	@user = User.all
   end
 
 private

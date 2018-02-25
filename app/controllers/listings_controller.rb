@@ -1,5 +1,6 @@
 class ListingsController < ApplicationController
   before_action :get_listing_with_id, only: [:show, :edit, :update]
+  before_action :get_owner_listing, only: [:update, :destroy]
   
   def index
     @listings = Listing.paginate(:page => params[:page], :per_page => 20)
@@ -10,11 +11,10 @@ class ListingsController < ApplicationController
   end
 
   def edit
-    # check role
-    if current_user.superadmin? || Listing.find(params[:id]).user_id == current_user.id
+    if current_user.superadmin? || get_listing_with_id.user_id == current_user.id
       get_listing_with_id
     else
-    # redirect if not admin or user
+    # redirect if not admin or listing's user
       redirect_to root_path
       flash[:success] = "Not enough token"
     end
@@ -24,7 +24,8 @@ class ListingsController < ApplicationController
     if params["listing"]["amenities"] == nil
       params["listing"]["amenities"] = []
     end
-    @listing = current_user.listings.find(params[:id])
+    # superadmin now able to edit owner's listing
+    @listing = get_owner_listing
     if @listing.update(listing_params)
       redirect_to @listing
       flash[:success] = "Update complete"
@@ -53,10 +54,14 @@ private
     @listing = Listing.find(params[:id])
   end
 
+  def get_owner_listing
+    return User.find(Listing.find(params[:id]).user_id).listings.find(params[:id])
+  end
+
   # Listing's strong parameters
   def listing_params
     params.require(:listing).permit(# basic info
-                                    :name, 
+                                    :name,
                                     :place_type, 
                                     :property_type, 
                                     # housing info
