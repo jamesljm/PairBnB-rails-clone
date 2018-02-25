@@ -6,6 +6,26 @@ class ListingsController < ApplicationController
     @listings = Listing.paginate(:page => params[:page], :per_page => 20)
   end
   
+  def new
+    if current_user.superadmin?
+      flash[:error] = "Admin cannot create listing."
+      redirect_to root
+    else
+      @listing = Listing.new
+    end
+  end
+
+  def create
+    @listing = current_user.listings.new(listing_params)
+    @listing.tags.concat params["listing"]["tags"].split(",")
+    
+    if @listing.save
+      redirect_to listing_path(@listing)
+    else
+      redirect_back(fallback_location: new_listing_path)
+    end
+  end
+  
   def show
     get_listing_with_id
   end
@@ -33,9 +53,6 @@ class ListingsController < ApplicationController
   end
 
   def search
-  end
-
-  def new
   end
 
   def destroy
