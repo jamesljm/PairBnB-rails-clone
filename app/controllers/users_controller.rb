@@ -39,6 +39,7 @@ class UsersController < Clearance::BaseController
 
   def show
     @user = User.find(params[:id])
+    @reservations = current_user.reservations
   end
 
   def destroy

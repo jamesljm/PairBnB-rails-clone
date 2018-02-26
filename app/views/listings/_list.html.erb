@@ -21,10 +21,12 @@
         </ul>
     <% end %>
     <!-- Edit will be display for listing's user and superadmin only -->
-    <% if current_user.id == @listing.user_id || current_user.superadmin? %>
-        <%= link_to "edit list", edit_listing_path(@listing) %>
-    <% else %>
-    <!-- Booking button will be display to customer only -->
-        <%= link_to "I want this!", new_listing_reservation_path(@listing) %>
+    <% if current_user != nil %>
+        <% if current_user.id == @listing.user_id || current_user.superadmin? %>
+            <%= link_to "edit list", edit_listing_path(@listing) %>
+        <% else %>
+        <!-- Booking button will be display to customer only -->
+            <%= link_to "I want this!", new_listing_reservation_path(@listing) %>
+        <% end %>
     <% end %>
 </ul>

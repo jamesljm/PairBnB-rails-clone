@@ -1,2 +1,26 @@
 <h1>Listings#search</h1>
 <p>Find me in app/views/listings/search.html.erb</p>
+
+<% @lists.each do |list| %>
+    <ul class="list" style="border: 1px solid black">
+        <li><strong><%= list.name %></strong></li>
+        <li><%= list.property_type %></li>
+        <li><%= list.bed_number %></li>
+        <li><%= list.guest_number %></li>
+        <li><%= list.country %></li>
+        <li><%= list.city %></li>
+        <li><%= list.state %></li>
+        <li><%= list.zipcode %></li>
+        <li><%= list.address %></li>
+        <li><%= list.price %></li>
+        <li><%= list.description %></li>
+        <li><%= list.user_id %></li>
+        <% if list.tags.length > 0 %>
+            <ul class="tags">
+                <% list.tags.each do |tag| %>
+                    <li><%= tag %></li>
+                <% end %>
+            </ul>
+        <% end %>
+    </ul>
+<% end %>
