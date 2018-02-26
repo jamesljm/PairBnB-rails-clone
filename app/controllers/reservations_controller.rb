@@ -1,10 +1,12 @@
 class ReservationsController < ApplicationController
-  before_action :get_listing_with_id, :get_reservation_with_id, only: [:show]
+  before_action :get_listing_with_id, :get_reservation_with_id, only: [:show, :edit]
   
   # for superadmin to display all the reservatios by clients
   def index
     if current_user.superadmin?
       @reservations = Reservation.all
+    else
+      redirect_to root_path
     end
   end
 
@@ -34,8 +36,10 @@ class ReservationsController < ApplicationController
   
 
   def edit
+    get_reservation_with_id
   end
 
+  # pending
   def confirm
   end
 

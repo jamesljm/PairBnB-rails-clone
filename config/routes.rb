@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       only: [:create, :edit, :update]
   end
 
+  get 'reservations/index' => 'reservations#index'
+
   resources :listings do
     collection do
       # additional path

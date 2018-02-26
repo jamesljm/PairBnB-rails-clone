@@ -1,2 +1,26 @@
-<h1>Reservations#index</h1>
-<p>Find me in app/views/reservations/index.html.erb</p>
+<% @reservations.each do |reservation| %>
+<% listing = Listing.find(reservation.listing_id) %>
+    <ul class="reserv-lists" style="border: 1px solid black">
+        <!-- reservation's listing -->
+        <li><%= listing.id %></li>
+        <li><%= listing.name %></li>
+        <li><%= User.find(listing.id).name %></li>
+        <li><%= listing.place_type %></li>
+        <li><%= listing.property_type %></li>
+        <li><%= listing.bed_number %></li>
+        <li><%= listing.guest_number %></li>
+        <li><%= listing.kitchen %></li>
+        <li><%= listing.amenities %></li>
+        <li><%= listing.country %></li>
+        <li><%= listing.city %></li>
+        <li><%= listing.state %></li>
+        <li><%= listing.zipcode %></li>
+        <li><%= listing.address %></li>
+        <li><%= listing.price %></li>
+        <li><%= listing.description %></li>
+        <!-- reservations -->
+        <li><%= reservation.start_date %></li>
+        <li><%= reservation.end_date %></li>
+        <li><%= reservation.total_price %></li>
+    </ul>
+<% end %>

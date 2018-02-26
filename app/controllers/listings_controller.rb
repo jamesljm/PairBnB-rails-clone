@@ -9,7 +9,7 @@ class ListingsController < ApplicationController
   def new
     if current_user.superadmin?
       flash[:error] = "Admin cannot create listing."
-      redirect_to root
+      redirect_to root_path
     else
       @listing = Listing.new
     end
@@ -36,7 +36,7 @@ class ListingsController < ApplicationController
     else
     # redirect if not admin or listing's user
       redirect_to root_path
-      flash[:success] = "Not enough token"
+      flash[:error] = "Not enough token"
     end
   end
 
@@ -52,7 +52,22 @@ class ListingsController < ApplicationController
     end
   end
 
+  # able to search
+  # 1. tags
   def search
+    if params[:search]
+      @lists = []
+      Listing.all.each do |list|
+        if list.tags.map(&:downcase).include? params[:search].downcase
+          @lists << list
+        end
+      end
+    end
+    # if item searched if not found
+    if @lists.empty?
+      flash[:notice] = "Search not found!"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def destroy
@@ -60,7 +75,7 @@ class ListingsController < ApplicationController
       @listing = Listing.find(params[:id]).delete
     else
     # redirect if not admin or user
-      flash[:success] = "Not enough token"
+      flash[:error] = "Not enough token"
       redirect_to sign_in_path
     end
   end
