@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "sessions", only: [:create]
  
-  resources :users, controller: "users", only: [:new, :edit, :show, :create] do
-    resource :password,
-      controller: "clearance/passwords",
+  resources :users, controller: "users", only: [:create, :edit, :update, :delete] do
+    resource :password, controller: "clearance/passwords",
       only: [:create, :edit, :update]
   end
 
@@ -27,7 +26,7 @@ Rails.application.routes.draw do
  
   get "/sign_in" => "sessions#new", as: "sign_in"
   delete "/sign_out" => "sessions#destroy", as: "sign_out"
-  get "/sign_up" => "users#new", as: "sign_up"
+  get "/sign_up" => "clearance/users#new", as: "sign_up"
 
   constraints Clearance::Constraints::SignedOut.new do
     root to: 'listings#index'

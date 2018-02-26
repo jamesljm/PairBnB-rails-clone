@@ -2,6 +2,9 @@ class ListingsController < ApplicationController
   before_action :get_listing_with_id, only: [:show, :edit, :update]
   before_action :get_owner_listing, only: [:update, :destroy]
   
+  # login required routes
+  # before_action :require_login, only: [:new, :show, :edit, :update, :delete, :index]
+
   def index
     @listings = Listing.paginate(:page => params[:page], :per_page => 20)
   end
