@@ -28,7 +28,7 @@
     <%= form.text_field :email, type: 'email' %>
 </div>
 
-<% if current_page?(new_user_path) %>
+<% if current_page?(sign_up_path) %>
     <div class="password-field">
         <%= form.label :password %>
         <%= form.password_field :password %>
