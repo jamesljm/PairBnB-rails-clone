@@ -1,7 +1,11 @@
 class ReservationsController < ApplicationController
   before_action :get_listing_with_id, :get_reservation_with_id, only: [:show]
   
+  # for superadmin to display all the reservatios by clients
   def index
+    if current_user.superadmin?
+      @reservations = Reservation.all
+    end
   end
 
   def new
