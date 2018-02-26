@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "sessions", only: [:create]
  
-  resources :users, controller: "users", only: [:create, :edit, :update, :delete] do
+  resources :users, controller: "users", only: [:show, :create, :edit, :update, :delete] do
     resource :password, controller: "clearance/passwords",
       only: [:create, :edit, :update]
   end

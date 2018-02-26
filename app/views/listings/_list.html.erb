@@ -1,4 +1,7 @@
 <ul class="list" style="border: 1px solid black">
+    <% @listing.images.each do |image| %>
+        <li><%= image_tag image.url if @listing.images? %></li>
+    <% end %>
     <li><strong><%= @listing.name %></strong></li>
     <li><%= @listing.property_type %></li>
     <li><%= @listing.bed_number %></li>

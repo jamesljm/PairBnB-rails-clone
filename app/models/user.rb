@@ -10,7 +10,7 @@ class User < ApplicationRecord
   enum role: { customer: 0, moderator: 1, superadmin: 2 }
 
   # carrierwave avatar
-  mount_uploader :avatar, ImageUploader
+  mount_uploader :avatar, AvatarUploader
 
   def self.create_with_auth_and_hash(authentication, auth_hash)
     user = self.create!(
