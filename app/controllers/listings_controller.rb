@@ -107,7 +107,7 @@ private
                                     # location
                                     :country, 
                                     :state, 
-                                    :city, 
+                                    :city,
                                     :zipcode, 
                                     :address, 
                                     # pricing
@@ -115,7 +115,8 @@ private
                                     :description, 
                                     # reference
                                     :user,
-                                    :amenities => [])
+                                    :amenities => [],
+                                    :images => [])
   end 
 
 end

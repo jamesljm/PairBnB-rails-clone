@@ -1,6 +1,10 @@
 <h1>User#show</h1>
 
+<h1>User Profile</h1>
 <ul>
+    <li>
+        <%= image_tag @user.avatar_url.to_s %>
+    </li>
     <li>
         <%= @user.name %>
     </li>
@@ -19,11 +23,10 @@
     <li>
         <%= @user.role %>
     </li>
-    <li>
-        <%= image_tag @user.avatar_url.to_s %>
-    </li>
 </ul>
+<%= link_to  "Edit", edit_user_path(current_user) %>
 
+<h1>Reservations</h1>
 <% @reservations.each do |booking| %>
     <ul id="reserv-lists">
         <li>
@@ -40,5 +43,3 @@
         </li>
     </ul>
 <% end %>
-
-<%= link_to  "Edit", edit_user_path(current_user) %>

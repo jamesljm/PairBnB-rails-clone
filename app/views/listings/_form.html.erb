@@ -51,6 +51,11 @@
     <%= form.label "Bakery" %>
     <%= form.check_box :amenities, {multiple: true}, "bakery", nil %>
 </div>
+
+<div class="images-field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
+</div>
     
     <!--Location-->
 <div class="text-field">
