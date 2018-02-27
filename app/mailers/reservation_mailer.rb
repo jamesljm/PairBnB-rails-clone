@@ -1,12 +1,13 @@
 class ReservationMailer < ApplicationMailer
-    def booking_email(customer, host, reservation_id)
+    def client_email(customer)
         @user = customer
-        @host = host
-
-        @user_subject = "You'vve made a reservation"
-        @host_subject = "Someone has made a reservation on your listing!"
-
-        mail(to: @host.email, subject: @subject)
+        @subject = "You'vve made a reservation"
         mail(to: @user.email, subject: @subject)
+    end
+    
+    def host_email(host)
+        @host = host
+        @subject = "Someone has made a reservation on your listing!"
+        mail(to: @host.email, subject: @subject)
     end
 end

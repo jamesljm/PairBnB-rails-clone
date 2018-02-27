@@ -20,8 +20,11 @@ class ReservationsController < ApplicationController
     calculate_total(params[:reservation], Listing.find(params[:listing_id]).price)
     @reservation = current_user.reservations.new(reservation_params)
     @reservation.listing_id = @listing.id
+    @host = User.find(@listing.user_id)
         
     if @reservation.save
+      ReservationMailer.client_email(current_user).deliver_now
+      ReservationMailer.host_email(@host).deliver_now
       flash[:success] = "Reservation successfully created"
       redirect_to listing_reservation_path(@listing, @reservation)
     else
