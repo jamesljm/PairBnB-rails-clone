@@ -1,40 +1,25 @@
 <h1>Booking Here</h1>
 <div class="list" style="border: 1px solid black">
     <div class="list-title">
-        <span>
-            <%= @listing.name %>
-        </span>
+        <span><%= @listing.name %></span>
         &middot;
-        <span>
-            <%= @listing.place_type %>
-        </span>
+        <span><%= @listing.place_type %></span>
     </div>
     <div class="list-info">
-        <span>
-            <%= @listing.property_type %>
-        </span>
+        <span><%= @listing.property_type %></span>
         &middot;
-        <span>
-            <%= @listing.country %>
-        </span>
+        <span><%= @listing.country %></span>
         &middot;
-        <span>
-            <%= @listing.state %>
-        </span>
+        <span><%= @listing.state %></span>
     </div>
     <div class="list-pricing">
-        <span>
-            <%= @listing.price %>
-        </span>
+        <span><%= @listing.price %></span>
         &middot;
-        <span>
-            <%= @listing.description %>
-        </span>
+        <span><%= @listing.description %></span>
     </div>
 </div>
 
-<%#= form_for [@listing, @reservation] do |form| %>
-<%= form_for [@listing, @reservation] do |form| %>
+<%= form_for [@listing, @reservation], url: confirm_listing_reservations_path, method: :get do |form| %>
     <%= render partial: '/reservations/form', object: form %>
     <div class="submit-field">
         <%= form.submit %>

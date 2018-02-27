@@ -1,2 +1,40 @@
-<h1>Reservations#confirm</h1>
-<p>Find me in app/views/reservations/confirm.html.erb</p>
+<h1>Reservation Confirmation Page</h1>
+<div class="list" style="border: 1px solid black">
+    <div class="list-title">
+        <span><%= @listing_param.name %></span>
+        &middot;
+        <span><%= @listing_param.place_type %></span>
+    </div>
+    <div class="list-info">
+        <span><%= @listing_param.property_type %></span>
+        &middot;
+        <span><%= @listing_param.country %></span>
+        &middot;
+        <span><%= @listing_param.state %></span>
+    </div>
+    <div class="list-pricing">
+        <span><%= @listing_param.price %></span>
+        &middot;
+        <span><%= @listing_param.description %></span>
+    </div>
+</div>
+
+<div class="list" style="border: 1px solid black">
+    <div class="list-title">
+        <span><%= @reservation_param[:start_date] %></span>
+        until
+        <span><%= @reservation_param[:end_date] %></span>
+    </div>
+    <div class="list-info">
+        <span><strong><%= @reservation_param[:total_price] %></strong></span>
+    </div>
+</div>
+
+<%= form_for [@listing, @reservation] do |form| %>
+    <%= form.hidden_field :start_date, value: @reservation_param[:start_date]%>
+    <%= form.hidden_field :end_date, value: @reservation_param[:end_date] %>
+    <%= form.hidden_field :total_price, value: @reservation_param[:total_price] %>
+    <div class="submit-field">
+        <%= form.submit %>
+    </div>
+<% end %>

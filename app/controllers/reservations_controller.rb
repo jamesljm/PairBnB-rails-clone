@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
     @reservation = current_user.reservations.new(reservation_params)
     @reservation.listing_id = @listing.id
     @host = User.find(@listing.user_id)
-        
+
     if @reservation.save
       ReservationMailer.client_email(current_user).deliver_now
       ReservationMailer.host_email(@host).deliver_now
@@ -44,6 +44,11 @@ class ReservationsController < ApplicationController
 
   # pending
   def confirm
+    @listing_param = Listing.find(params[:listing_id])
+    @reservation_param = params[:reservation]
+    @total_price = calculate_total(@reservation_param, @listing_param.price)
+    get_listing_with_id
+    @reservation = Reservation.new
   end
 
 private
