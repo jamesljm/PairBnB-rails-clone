@@ -4,7 +4,9 @@ class UsersController < Clearance::UsersController
 
   def create
     super
-    UserMailer.pairbnb_welcome(@user).deliver_now
+    if @user.save
+      UserMailer.pairbnb_welcome(@user).deliver_now
+    end
   end
 
   def edit
@@ -34,7 +36,6 @@ class UsersController < Clearance::UsersController
   end
 
 private
-
   def user_params
   	params.require(:user).permit(:first_name, :last_name, :email, :gender, :password, :birthdate, :phone, :avatar)
   end

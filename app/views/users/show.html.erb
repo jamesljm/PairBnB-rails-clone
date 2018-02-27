@@ -24,7 +24,7 @@
 </ul>
 <%= link_to  "Edit", edit_user_path(current_user) %>
 
-<% if @listings != nil %>
+<% if @listings.any? %>
     <h1>Your Listings</h1>
     <table style="border: 1px solid black">
         <tr>
@@ -62,7 +62,7 @@
     </table>
 <% end %>
 
-<% if @reservations != nil %>
+<% if @reservations.any? %>
     <h1>Your Reservations</h1>
     <% @reservations.each do |reservation| %>
         <ul id="reserv-lists" style="border: 1px solid black">
