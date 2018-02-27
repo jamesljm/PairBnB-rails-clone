@@ -66,7 +66,8 @@
     <h1>Your Reservations</h1>
     <% @reservations.each do |reservation| %>
         <ul id="reserv-lists" style="border: 1px solid black">
-            <li><%= link_to  Listing.find(reservation.listing_id).name, listing_reservation_path(reservation.id) %></li>
+            <li><%= reservation.id %></li>
+            <li><%= link_to Listing.find(reservation.listing_id).name, listing_reservation_path(reservation.listing_id, reservation.id) %></li>
             <li><%= reservation.start_date %></li>
             <li><%= reservation.end_date %></li>
             <li><%= reservation.total_price %></li>
