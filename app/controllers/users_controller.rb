@@ -2,6 +2,11 @@ class UsersController < Clearance::UsersController
   # accessible pages with login
   before_action :require_login, only: [:edit, :update]
 
+  def create
+    super
+    UserMailer.pairbnb_welcome(@user).deliver_now
+  end
+
   def edit
     @user = current_user
   end
@@ -17,6 +22,7 @@ class UsersController < Clearance::UsersController
 
   def show
     @user = current_user
+    @listings = current_user.listings
     @reservations = current_user.reservations
   end
 

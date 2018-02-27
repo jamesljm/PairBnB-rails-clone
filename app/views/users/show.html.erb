@@ -1,7 +1,5 @@
-<h1>User#show</h1>
-
 <h1>User Profile</h1>
-<ul>
+<ul style="border: 1px solid black">
     <li>
         <%= image_tag @user.avatar_url.to_s %>
     </li>
@@ -26,20 +24,52 @@
 </ul>
 <%= link_to  "Edit", edit_user_path(current_user) %>
 
-<h1>Reservations</h1>
-<% @reservations.each do |booking| %>
-    <ul id="reserv-lists">
-        <li>
-            <%= Listing.find(booking.listing_id).name %>
-        </li>
-        <li>
-            <%= booking.start_date %>
-        </li>
-        <li>
-            <%= booking.end_date %>
-        </li>
-        <li>
-            <%= booking.total_price %>
-        </li>
-    </ul>
+<% if @listings != nil %>
+    <h1>Your Listings</h1>
+    <table style="border: 1px solid black">
+        <tr>
+            <th class="tg-yw4l">name</th>
+            <th class="tg-yw4l">property_type</th>
+            <th class="tg-yw4l">bad_number</th>
+            <th class="tg-yw4l">guest_number</th>
+            <th class="tg-yw4l">kitchen</th>
+            <th class="tg-yw4l">amenities</th>
+            <th class="tg-yw4l">country</th>
+            <th class="tg-yw4l">city</th>
+            <th class="tg-yw4l">state</th>
+            <th class="tg-yw4l">zipcode</th>
+            <th class="tg-yw4l">address</th>
+            <th class="tg-yw4l">price</th>
+            <th class="tg-yw4l">description</th>
+        </tr>
+        <% @listings.each do |listing| %>
+        <tr>
+            <td><%= link_to listing.name, listing %></td>
+            <td><%= listing.property_type %></td>
+            <td><%= listing.bed_number %></td>
+            <td><%= listing.guest_number %></td>
+            <td><%= listing.kitchen %></td>
+            <td><%= listing.amenities %></td>
+            <td><%= listing.country %></td>
+            <td><%= listing.city %></td>
+            <td><%= listing.state %></td>
+            <td><%= listing.zipcode %></td>
+            <td><%= listing.address %></td>
+            <td><%= listing.price %></td>
+            <td><%= listing.description %></td>
+        </tr>
+        <% end %>
+    </table>
+<% end %>
+
+<% if @reservations != nil %>
+    <h1>Your Reservations</h1>
+    <% @reservations.each do |reservation| %>
+        <ul id="reserv-lists" style="border: 1px solid black">
+            <li><%= link_to  Listing.find(reservation.listing_id).name, listing_reservation_path(reservation.id) %></li>
+            <li><%= reservation.start_date %></li>
+            <li><%= reservation.end_date %></li>
+            <li><%= reservation.total_price %></li>
+        </ul>
+    <% end %>
 <% end %>
