@@ -22,15 +22,30 @@ class ReservationsController < ApplicationController
     @reservation.listing_id = @listing.id
     @host = User.find(@listing.user_id)
 
-    if @reservation.save
-      ReservationMailer.client_email(current_user).deliver_now
-      ReservationMailer.host_email(@host).deliver_now
-      flash[:success] = "Reservation successfully created"
-      redirect_to listing_reservation_path(@listing, @reservation)
+    nonce_from_the_client = params[:payment_method_nonce]
+
+    result = Braintree::Transaction.sale(
+    :amount => "10.00", #this is currently hardcoded
+    :payment_method_nonce => nonce_from_the_client,
+    :options => {
+        :submit_for_settlement => true
+      }
+    )
+
+    if result.success?
+      if @reservation.save
+        ReservationMailer.client_email(current_user).deliver_now
+        ReservationMailer.host_email(@host).deliver_now
+        flash[:success] = "Reservation successfully created"
+        redirect_to listing_reservation_path(@listing, @reservation)
+      else
+        flash[:error] = "Something went wrong"
+        redirect_back(fallback_location: new_listing_reservation_path)      
+      end
     else
-      flash[:error] = "Something went wrong"
-      redirect_back(fallback_location: new_listing_reservation_path)      
+      redirect_to :root, :flash => { :error => "Transaction failed. Please try again." }
     end
+
   end
   
   def show
@@ -44,6 +59,7 @@ class ReservationsController < ApplicationController
 
   # pending
   def confirm
+    @client_token = Braintree::ClientToken.generate
     @listing_param = Listing.find(params[:listing_id])
     @reservation_param = params[:reservation]
     @total_price = calculate_total(@reservation_param, @listing_param.price)

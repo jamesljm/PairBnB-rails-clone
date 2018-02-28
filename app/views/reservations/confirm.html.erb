@@ -30,11 +30,100 @@
     </div>
 </div>
 
-<%= form_for [@listing, @reservation] do |form| %>
+<%= form_for [@listing, @reservation], html: { id: "cardForm"} do |form| %>
+    <%= label_tag "Credit Card Number" %>
+    <div id="card-number" class="hosted-field"></div>
+
+    <%= label_tag "Expiration Date" %>
+    <div id="expiration-date" class="hosted-field"></div>
+
+    <%= label_tag "CVV" %>
+    <div id="cvv" class="hosted-field"></div>
+
+    <%= hidden_field_tag "payment_method_nonce" %>
     <%= form.hidden_field :start_date, value: @reservation_param[:start_date]%>
     <%= form.hidden_field :end_date, value: @reservation_param[:end_date] %>
     <%= form.hidden_field :total_price, value: @reservation_param[:total_price] %>
-    <div class="submit-field">
-        <%= form.submit %>
+
+    <div class="button-container">
+        <%= form.submit "Confirm Reservation", disabled: true, class: "btn btn-primary", id: "submit-payment-btn" %>
     </div>
+<% end %>
+
+<% content_for :js do %>
+    <!-- Load the Client component. -->
+    <script src="https://js.braintreegateway.com/web/3.6.3/js/client.min.js"></script>
+    
+    <!-- Load the Hosted Fields component. -->
+    <script src="https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js"></script>
+    
+    <script>
+        var form = document.querySelector('#cardForm');
+        var submit = document.querySelector("#submit-payment-btn");
+        var authorization = '<%= @client_token %>';
+
+        braintree.client.create({
+            // Replace this with your own authorization.
+            authorization: authorization
+        }, function (clientErr, clientInstance) {
+            if (clientErr) {
+                // Handle error in client creation
+                return;
+            }
+
+            braintree.hostedFields.create({
+                client: clientInstance,
+                styles: {
+                    'input': {
+                        'font-size': '14pt'
+                    },
+                    'input.invalid': {
+                        'color': 'red'
+                    },
+                    'input.valid': {
+                        'color': 'green'
+                    }
+                },
+                fields: {
+                    number: {
+                        selector: '#card-number',
+                        placeholder: '4111 1111 1111 1111'
+                    },
+                    cvv: {
+                        selector: '#cvv',
+                        placeholder: '123'
+                    },
+                    expirationDate: {
+                        selector: '#expiration-date',
+                        placeholder: '10/2019'
+                    }
+                }
+            }, function (hostedFieldsErr, hostedFieldsInstance) {
+                if (hostedFieldsErr) {
+                    // Handle error in Hosted Fields creation
+                    return;
+                }
+
+                submit.removeAttribute('disabled');
+
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+                        if (tokenizeErr) {
+                            // Handle error in Hosted Fields tokenization
+                            return;
+                        }
+
+                        // Put `payload.nonce` into the `payment_method_nonce` input, and then
+                        // submit the form. Alternatively, you could send the nonce to your server
+                        // with AJAX.
+                        document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
+                        form.submit();
+                    });
+                }, false);
+            });
+        });
+
+    </script>
 <% end %>
