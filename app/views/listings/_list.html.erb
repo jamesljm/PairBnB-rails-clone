@@ -3,6 +3,7 @@
         <li><%= image_tag image.url if @listing.images? %></li>
     <% end %>
     <li><strong><%= @listing.name %></strong></li>
+    <li><%= @listing.place_type %></li>
     <li><%= @listing.property_type %></li>
     <li><%= @listing.bed_number %></li>
     <li><%= @listing.guest_number %></li>

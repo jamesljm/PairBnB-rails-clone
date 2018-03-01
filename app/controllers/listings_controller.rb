@@ -11,7 +11,7 @@ class ListingsController < ApplicationController
   
   def new
     if current_user.superadmin?
-      flash[:error] = "Admin cannot create listing."
+      flash[:error] = "Admin cannot create listing." # isit?
       redirect_to root_path
     else
       @listing = Listing.new
@@ -55,21 +55,31 @@ class ListingsController < ApplicationController
     end
   end
 
-  # able to search
-  # 1. tags
+  # === Search result page
   def search
-    if params[:search]
-      @lists = []
-      Listing.all.each do |list|
-        if list.tags.map(&:downcase).include? params[:search].downcase
-          @lists << list
-        end
+    @listing_search = Listing.new
+    @listing_search[:amenities] = ["gym", "pool", "sauna", "bakery"]
+    # @search_param.present? ? @search_param = params[:search] : params[:search]
+    # @listings = Listing.paginate(:page => params[:page], :per_page => 9)
+    # === Search
+    if params[:search].present?
+      @listings = Listing.where(nil)
+      listing_search(params).each do |key, value|
+        @listings = @listings.public_send(key, value) if value.present?
       end
-    end
-    # if item searched if not found
-    if @lists.empty?
-      flash[:notice] = "Search not found!"
-      redirect_back(fallback_location: root_path)
+    else
+    # === Filter
+      @listings = Listing.where(nil)
+      @params = params[:listing]
+      # works
+      # @listings = @listings.with_amenities(params[:listing][:amenities]) if @params[:amenities].present?
+      # @listings = @listings.with_property_type(@params[:property_type]) if @params[:property_type].present?
+      # @listings = @listings.testing("Tree")
+      listing_filter(@params).each do |key, value|
+        @listings = @listings.public_send(key, value) if value.present?
+      end
+      # @listings = @listings.with_place_type(@params[:place_type])
+      # @listings = @listings.testing(params[:search]) if params[:search].present?
     end
   end
 
@@ -84,13 +94,23 @@ class ListingsController < ApplicationController
   end
 
 private
-  # Getter
+  # === Getter
   def get_listing_with_id
     @listing = Listing.find(params[:id])
   end
 
   def get_owner_listing
     return User.find(Listing.find(params[:id]).user_id).listings.find(params[:id])
+  end
+
+  # A list of the param names that can be used for filtering the Listing list
+  def listing_search(params)
+    params.slice(:search)
+  end
+
+  def listing_filter(params)
+    params[:amenities].reject! { |x| x == '0' }
+    params.slice(:place_type, :amenities, :property_type)
   end
 
   # Listing's strong parameters

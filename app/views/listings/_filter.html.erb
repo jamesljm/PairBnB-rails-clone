@@ -1,0 +1,57 @@
+<!-- filter option: place_type, property_type, price, bed number, room number, amenities, kitchen -->
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <%= form_for @listing_search, url: search_listings_path, method: :get do |form| %>
+        <%= hidden_field_tag :user_search, @search_param %>
+        <input type="hidden" name="country" value="Norway">
+        <div class="radio-field">
+            <%= form.label :place_type %><br />
+            <%= form.radio_button :place_type, 'all', :checked => true %> All<br />
+            <%= form.radio_button :place_type, 'heaven' %> Heaven<br />
+            <%= form.radio_button :place_type, 'earth' %> Earth<br />
+            <%= form.radio_button :place_type, 'hell' %> Hell<br />
+        </div>
+            
+        <div class="property-field">
+            <%= form.label :property_type %>
+            <%= form.select :property_type, options_for_select(["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]) %>
+        </div>
+
+        <div>
+            <%= form.label :room_number, "Numbers of room" %>
+            <%= form.select :room_number, options_for_select(0..5) %>
+        </div>
+        
+        <div>
+            <%= form.label :bed_number, "Numbers of bed" %>
+            <%= form.select :bed_number, options_for_select(1..6) %>
+        </div>
+        
+        <div>
+            <%= form.label :amenities %><br />
+            <%= form.label "Gym" %>
+            <%= form.check_box :amenities, {multiple: true}, "gym" %>
+            <%= form.label "Pool" %>
+            <%= form.check_box :amenities, {multiple: true}, "pool" %>
+            <%= form.label "Sauna" %>
+            <%= form.check_box :amenities, {multiple: true}, "sauna" %>
+            <%= form.label "Bakery" %>
+            <%= form.check_box :amenities, {multiple: true}, "bakery" %>
+        </div>
+
+        <div>
+            <%= form.label :price, "Price" %>
+            <%= form.range_field :price, "list" => "price-list", in: 80...500 %>
+            <datalist id="price-list">
+                <% i = 80 %>
+                <% until i > 500 do %>
+                    <option value="<%= i %><% if i % 100 == 0 %>" label="<%= i %>"<% end %>"></option>
+                    <% i = i + 10 %>
+                <% end %>
+            </datalist>
+        </div>
+
+        <%= form.submit "Filter" %>
+    <% end %>
+  </div>
+</nav>
