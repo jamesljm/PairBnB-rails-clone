@@ -72,15 +72,12 @@ class ListingsController < ApplicationController
       @listings = Listing.where(nil)
       @params = params[:listing]
       # works
-      # @listings = @listings.with_amenities(params[:listing][:amenities]) if @params[:amenities].present?
-      # @listings = @listings.with_property_type(@params[:property_type]) if @params[:property_type].present?
-      # @listings = @listings.testing("Tree")
       listing_filter(@params).each do |key, value|
         @listings = @listings.public_send(key, value) if value.present?
       end
       @listings = @listings.price(params[:listing][:min_price], params[:listing][:max_price])
-      # @listings = @listings.with_place_type(@params[:place_type])
-      # @listings = @listings.testing(params[:search]) if params[:search].present?
+      @listings = @listings.by_place_type(params[:listing][:place_type])
+
     end
   end
 
@@ -112,8 +109,7 @@ private
   def listing_filter(params)
     params[:place_type] == 'all' ? params[:place_type] = ["heaven", "earth", "hell"] : params[:place_type] = Array(params[:place_type])
     params[:amenities].reject! { |x| x == '0' }
-    params.slice(:price)
-    # , :amenities, :property_type
+    params.slice(:amenities, :property_type)
   end
 
   # Listing's strong parameters
