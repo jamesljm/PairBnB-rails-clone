@@ -69,3 +69,7 @@ gem 'bootstrap-tagsinput-rails', '0.4.2.1'
 gem 'jquery-rails', '4.3.1'
 gem 'letter_opener', '1.6.0'
 gem 'braintree'
+gem 'searchkick'
+
+gem 'elasticsearch-model', git: 'git://github.com/elastic/elasticsearch-rails.git', branch: 'master'
+gem 'elasticsearch-rails', git: 'git://github.com/elastic/elasticsearch-rails.git', branch: 'master'
