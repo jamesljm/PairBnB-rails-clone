@@ -1,0 +1,19 @@
+$(function () {
+    // alert("connected")
+    $("#slider-range").slider({
+        range: true,
+        min: 80,
+        max: 500,
+        values: [80, 500],
+        slide: function (event, ui) {
+            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        }
+    });
+    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+        " - $" + $("#slider-range").slider("values", 1));
+
+    $("#btn-filter").click(() => {
+        $("#listing_min_price").val($("#slider-range").slider("values", 0));
+        $("#listing_max_price").val($("#slider-range").slider("values", 1));
+    });
+});
