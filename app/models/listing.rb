@@ -20,9 +20,10 @@ class Listing < ApplicationRecord
     scope :search,          -> (keyword) { where("name like ? OR country LIKE ? OR state LIKE ?", "#{keyword}%", "#{keyword}%", "#{keyword}%") }
     # filter scope: place_type, property_type, price, bed number, room number, amenities, kitchen
     # scope :with_amenities, ->(amenities) { where('listings.amenities && array[?]', amenities.sort) }
-    scope :place_type, -> (place_type) { where place_type: place_type }
+    scope :place_type, -> (place_type) { where(:place_type => '{place_type}') }
     scope :amenities, -> (amenities) { where amenities: amenities }
     scope :property_type, -> (property_type) { where property_type: property_type }
+    scope :price, -> (min_price, max_price) { where("price >= ? AND price <= ?", min_price, max_price) }
 
 
     scope :with_place_type, ->(place_type) { where("place_type LIKE ?", "heaven") }
