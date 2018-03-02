@@ -3,30 +3,24 @@
     <div class="navbar-header">
       <%= link_to 'PairBnB', root_path, class: 'navbar-brand' %>
     </div>
-    <div id="navbar">
-    <% if signed_in? %>
-        <ul class="nav navbar-nav">
-          <!-- <li><%#= link_to 'Add Page', new_page_path %></li> -->
-        </ul>
-    <% end %>
- 
-    <ul class="nav navbar-nav pull-right">
+    <div id="navbar"> 
+      <ul class="nav navbar-nav pull-right">
         <%= form_tag(search_listings_path, :method => "get", id: "search-form") do %>
-        <%#= form_tag(search_path, :method => "POST", id: "search-form") do %>
-          <%= text_field_tag :search, "dog", placeholder: "Search PairBnB", list: "list" %>
-          <datalist id="list"></datalist>
-          <%= submit_tag "Search" %>
-        <% end %>
-        <% if signed_in? %>
-          <li><span><%= current_user.email %></span></li>
-          <li><%= link_to  current_user.name, user_path(current_user.id) %></li>
-          <li><%= link_to 'Sign out', sign_out_path, method: :delete %></li>
-        <% else %>
-        <li><%= link_to 'Sign in', sign_in_path %></li>
-        <li><%= link_to "Sign in with Facebook", "/auth/facebook" %></li>
-        <li><%= link_to  "Back", root_path %></li>
-      <% end %>
-  </ul>
+          <%#= form_tag(search_path, :method => "POST", id: "search-form") do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search PairBnB", list: "list" %>
+            <datalist id="list"></datalist>
+            <%= submit_tag "Search" %>
+          <% end %>
+          <% if signed_in? %>
+            <li><span><%= current_user.email %></span></li>
+            <li><%= link_to  current_user.name, user_path(current_user.id) %></li>
+            <li><%= link_to 'Sign out', sign_out_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to 'Sign in', sign_in_path %></li>
+            <li><%= link_to "Sign in with Facebook", "/auth/facebook" %></li>
+            <li><%= link_to  "Back", root_path %></li>
+          <% end %>
+      </ul>
     </div>
   </div>
 </nav>

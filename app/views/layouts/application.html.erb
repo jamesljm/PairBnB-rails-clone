@@ -31,8 +31,8 @@
       <%#= render 'layouts/footer' %>
     </footer>
 
-      <% if content_for?(:page_js) %>
-        <%= yield(:page_js) %>
+      <% if content_for?(:js) %>
+        <%= yield(:js) %>
       <% end %>
   </body>
 </html>

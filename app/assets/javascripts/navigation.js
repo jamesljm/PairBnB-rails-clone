@@ -2,9 +2,7 @@
 
 // == Navigation AJAX search
 $(document).on('turbolinks:load', () => {
-
-    alert("connected AJAX");
-
+    
     $("#search").keyup((e) => {
 
         // alert("key press");
