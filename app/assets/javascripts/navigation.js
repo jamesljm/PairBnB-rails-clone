@@ -3,8 +3,6 @@
 // == Navigation AJAX search
 $(document).on('turbolinks:load', () => {
 
-    alert("connected AJAX");
-
     $("#search").keyup((e) => {
 
         // alert("key press");
@@ -29,7 +27,6 @@ $(document).on('turbolinks:load', () => {
             // rendering data type
             dataType: "json",
             success: function (response) {
-               
                 response.forEach((e) => {
                     console.log(e);
                     const option = document.createElement('option');
