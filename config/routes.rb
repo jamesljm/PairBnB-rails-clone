@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'search/search'
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "sessions", only: [:create]
  
@@ -7,6 +9,8 @@ Rails.application.routes.draw do
     resource :password, controller: "clearance/passwords",
       only: [:create, :edit, :update]
   end
+
+  post '/search', to: 'search#search'
 
   get 'reservations/index' => 'reservations#index'
 

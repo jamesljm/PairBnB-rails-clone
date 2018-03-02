@@ -12,7 +12,9 @@
  
     <ul class="nav navbar-nav pull-right">
         <%= form_tag(search_listings_path, :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search PairBnB" %>
+        <%#= form_tag(search_path, :method => "POST", id: "search-form") do %>
+          <%= text_field_tag :search, "dog", placeholder: "Search PairBnB", list: "list" %>
+          <datalist id="list"></datalist>
           <%= submit_tag "Search" %>
         <% end %>
         <% if signed_in? %>
