@@ -24,9 +24,15 @@ class Listing < ApplicationRecord
     scope :amenities, -> (amenities) { where amenities: amenities }
     scope :property_type, -> (property_type) { where property_type: property_type }
     scope :price, -> (min_price, max_price) { where("price >= ? AND price <= ?", min_price, max_price) }
-
-
     scope :with_place_type, ->(place_type) { where("place_type LIKE ?", "heaven") }
     scope :testing,         -> (keyword) { where("name like ?", "tree") }
+
+    # === AJAX Search
+    def self.search_params(keyword)
+        where("name ILIKE :name", name: "%#{keyword}%").map do |record|
+        # where("name LIKE ?", "%#{keyword}%"1).map do |record|
+            record
+        end
+    end
 
 end
