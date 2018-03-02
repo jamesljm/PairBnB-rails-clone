@@ -30,7 +30,6 @@ class Listing < ApplicationRecord
     # === AJAX Search
     def self.search_params(keyword)
         where("name ILIKE :name", name: "%#{keyword}%").map do |record|
-        # where("name LIKE ?", "%#{keyword}%"1).map do |record|
             record
         end
     end
